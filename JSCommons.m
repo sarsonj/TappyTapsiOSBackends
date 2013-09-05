@@ -10,6 +10,7 @@
 #import "NSString+Hashes.h"
 #import <AudioToolbox/AudioToolbox.h>
 #import <AdSupport/AdSupport.h>
+#import "TSMacros.h"
 
 
 #define kTagAlert 90001
