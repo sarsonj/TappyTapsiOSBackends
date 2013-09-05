@@ -27,7 +27,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 
 -(NSCalendar*)gregorianCalendar {
 	if (_gregorianCalendar != nil) {
-		DLog(@"Default TZ: %@", [NSTimeZone defaultTimeZone]);
 		[_gregorianCalendar setTimeZone:[NSTimeZone defaultTimeZone]];
 	}
 	return _gregorianCalendar;
@@ -51,7 +50,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 /*
  * Returns YES, if date with same day */
 -(BOOL)isSameDay:(NSDate*)dat1 second:(NSDate*)dat2 {
-	DLog(@"Calendar tz: %@", [self.gregorianCalendar timeZone]);
 	NSDateComponents *d1 = [self.gregorianCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dat1];
 	NSDateComponents *d2 = [self.gregorianCalendar components:(NSYearCalendarUnit | NSMonthCalendarUnit | NSDayCalendarUnit) fromDate:dat2];
 	if (([d1 day] != [d2 day]) || ([d1 month] != [d2 month])) {
@@ -103,9 +101,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 */
 
 -(NSString*)getHumanFriendlyDateName:(NSDate*)date extendedHumanFriendly:(BOOL)exHumanFriendly {
-	DLog(@"humanFriendyDate: %@", date);
-	DLog(@"Now: %@", [NSDate dateWithTimeIntervalSinceNow:0]);
-	DLog(@"Clean date: %@", [self getCleanDate:date]);
 	NSUInteger unitFlags = (NSDayCalendarUnit);
 	NSDateComponents *components = [self.gregorianCalendar components:unitFlags
                                                              fromDate:[self getCleanDate:date] toDate:[NSDate dateWithTimeIntervalSinceNow:0] options:0];
@@ -141,7 +136,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 	[outputFormatter setTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:0]];
 	[outputFormatter setDateFormat:@"y-MM-dd'T'HH:mm:ss'Z'"];
 	NSString *toRet = [outputFormatter stringFromDate:date];
-	DLog(@"toRet: %@", toRet);
 	[outputFormatter release];
 	return toRet;	
 }
@@ -151,7 +145,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 	NSDateFormatter *outputFormatter = [[NSDateFormatter alloc] init];
 	[outputFormatter setDateFormat:@"y-MM-dd'T'HH:mm:ss'Z'"];
 	NSString *toRet = [outputFormatter stringFromDate:fixedDate];
-	DLog(@"toRet: %@", toRet);
 	[outputFormatter release];
 	return toRet;
 }
@@ -160,8 +153,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 	NSTimeInterval interval = [date timeIntervalSinceReferenceDate];
 	interval -= offset;
 	NSDate* fixedDate = [NSDate dateWithTimeIntervalSinceReferenceDate:interval];
-	DLog(@"Orig date: %@", date);
-	DLog(@"Date: %@", fixedDate);
 	return fixedDate;
 }
 
@@ -388,7 +379,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 -(NSString*)fuzzuTimeRangeHour:(int)hour minute:(int)minute second:(int)second {
 	NSString* toRet;
 	if ((hour == 0) && (minute == 0)) {
-		//	DLog(@"Secs: %d",second);
 		if (second <= 10) {
 			toRet = [NSString stringWithFormat:@"%@ %i %@", NSLocalizedString(@"less than",@""),10, [self getSecondsString:30 sh:NO]];
 		} else if (second <= 30) {
@@ -448,7 +438,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 
 -(NSDate*)fixCurDate:(NSDate*)date origTz:(float)tzorg currTz: (float)tzcurr {
 	NSTimeInterval interval = [date timeIntervalSinceReferenceDate];
-	DLog(@"Interval: %f, tzorg: %f, tzcurr: %f", interval, tzorg, tzcurr);
 	interval = interval + (tzorg - tzcurr);
 	return [NSDate dateWithTimeIntervalSinceReferenceDate:interval];
 }
@@ -494,7 +483,6 @@ static TSTimeTools* sharedTimeToolsInstance;
 	_gregorianCalendar = [[NSCalendar alloc]
 						 initWithCalendarIdentifier:NSGregorianCalendar];
 	currentLanguage = [[[NSLocale preferredLanguages] objectAtIndex:0] retain];	
-	DLog(@"%@",currentLanguage);
     sharedTimeToolsInstance = self;
 	return self;
 }
