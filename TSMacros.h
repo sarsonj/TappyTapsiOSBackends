@@ -14,3 +14,5 @@
 
 // check persistent boolean
 #define pbool(str) ([[NSUserDefaults standardUserDefaults] integerForKey:str] == 1)
+
+#define TS_S(_str, ...)      [NSString stringWithFormat: _str, ##__VA_ARGS__]

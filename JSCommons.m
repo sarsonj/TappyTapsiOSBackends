@@ -157,7 +157,7 @@ static JSCommons *jscommsharedInstance = nil;
         NSString *oldUUID = [[UIDevice currentDevice] uniqueIdentifier];
         [[NSUserDefaults standardUserDefaults] setObject:oldUUID forKey:@"uuid"];
         if ([[UIDevice currentDevice] respondsToSelector:@selector(identifierForVendor)]) {
-            NSString *checkString = [NSLocalizedString(@"%@%@", oldUUID, [[[UIDevice currentDevice] identifierForVendor] UUIDString]) sha1];
+            NSString *checkString = [TS_S(@"%@%@", oldUUID, [[[UIDevice currentDevice] identifierForVendor] UUIDString]) sha1];
             [[NSUserDefaults standardUserDefaults] setObject:checkString forKey:@"uuidcheck"];
         }
     }
@@ -175,7 +175,7 @@ static JSCommons *jscommsharedInstance = nil;
         if (uidInUserdefaults) {
             NSString *check = [[NSUserDefaults standardUserDefaults] stringForKey:@"uuidcheck"];
             if (check) {
-                NSString *checkToCompare = [NSLocalizedString(@"%@%@", uidInUserdefaults, [[[UIDevice currentDevice] identifierForVendor] UUIDString]) sha1];
+                NSString *checkToCompare = [TS_S(@"%@%@", uidInUserdefaults, [[[UIDevice currentDevice] identifierForVendor] UUIDString]) sha1];
                 if (![checkToCompare isEqualToString:check]) {
                     uidInUserdefaults = nil;
                 }
