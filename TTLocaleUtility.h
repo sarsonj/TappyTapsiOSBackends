@@ -19,5 +19,8 @@
 +(id)sharedTTLocaleUtility;
 -(NSString*)currentLanguage;
 -(NSString*)currentAndSupportedLanguage;
++(NSString*)myLang;
+
+
 
 @end
