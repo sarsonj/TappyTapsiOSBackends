@@ -9,7 +9,12 @@
 #import "JSCommons.h"
 #import "NSString+Hashes.h"
 #import <AudioToolbox/AudioToolbox.h>
+
+
+#ifdef __IPHONE_OS_VERSION_MAX_ALLOWED	
+
 #import <AdSupport/AdSupport.h>
+#endif
 #import "TSMacros.h"
 
 
@@ -23,6 +28,7 @@ static JSCommons *jscommsharedInstance = nil;
 
 #pragma mark -
 #pragma mark Singleton methods
+
 
 + (JSCommons*)getInstance
 {

@@ -28,7 +28,6 @@
 -(BOOL)isSilent;
 -(void)playSound:(NSString*)file type:(NSString*)type;
 
-#endif
 
 - (void)storeOldUUID;
 
@@ -37,5 +36,6 @@
 - (NSString *)currentUUID;
 
 -(void)alert:(NSString*)title text:(NSString*)text;
+#endif
 
 @end
